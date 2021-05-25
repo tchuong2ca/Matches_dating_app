@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/ic_main"
+        android:icon="@drawable/ic_baseline_whatshot_24"
+        android:title="">
+
+    </item>
+    <item
+        android:id="@+id/ic_matched"
+        android:icon="@drawable/ic_baseline_message_32"
+        android:title="">
+    </item>
+    <item
+        android:id="@+id/ic_profile"
+        android:icon="@drawable/ic_baseline_account_circle_24"
+        android:title="">
+    </item>
+
+</menu>
