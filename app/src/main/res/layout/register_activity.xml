@@ -164,6 +164,6 @@
                 android:id="@+id/link_login"
                 android:padding="18dp"
                 android:textColor="@color/white"
-                android:text="Have an account yet? Login now" />
+                android:text="Already have an account? Login now" />
         </LinearLayout>
 </RelativeLayout>
