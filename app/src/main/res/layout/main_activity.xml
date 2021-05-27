@@ -61,12 +61,14 @@
                         android:layout_marginRight="20dp"
                         android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
-                        android:onClick="DislikeBtn"
+                        android:onClick="onLeftCardExit"
+                        android:visibility="gone"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_not_interested_32" />
 
                     <ImageButton
                         android:id="@+id/likebtn"
+                        android:visibility="gone"
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/round_button_with_border"
@@ -82,38 +84,6 @@
         </LinearLayout>
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/more_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="70dp"
-        android:visibility="gone">
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <com.example.matches.PulsatorLayout
-                android:id="@+id/pulsator"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:pulse_color="@color/colorAccent"
-                app:pulse_count="3"
-                app:pulse_duration="8000"
-                app:pulse_interpolator="Decelerate"
-                app:pulse_repeat="0"
-                app:pulse_startFromScratch="false">
 
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/post"
-                    android:layout_width="160dp"
-                    android:layout_height="160dp"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/userlogo"
-                    app:civ_border_color="@color/transparentPink"
-                    app:civ_border_width="1dp" />
-
-            </com.example.matches.PulsatorLayout>
-
-        </RelativeLayout>
-    </FrameLayout>
 
 </RelativeLayout>

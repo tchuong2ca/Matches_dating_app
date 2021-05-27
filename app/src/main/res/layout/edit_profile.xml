@@ -5,13 +5,11 @@
     android:orientation="vertical"
     android:background="@color/white">
     <include layout="@layout/top_back" />
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:id="@+id/scrolView_account"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -23,101 +21,194 @@
                 android:layout_marginTop="100dp"
                 android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="100dp"
-                    android:orientation="vertical">
+             <LinearLayout
+                 android:layout_width="match_parent"
+                 android:layout_height="wrap_content"
+                 android:orientation="vertical">
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="match_parent"
+                     android:layout_marginLeft="10dp"
+                     android:layout_marginRight="10dp"
+                     android:layout_marginTop="100dp"
+                     android:orientation="horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="About you"
-                        android:textStyle="bold"
-                        android:textAllCaps="true"/>
+                     <LinearLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:orientation="vertical"
+                         android:layout_marginEnd="20dp">
+                         <TextView
+                             android:layout_width="wrap_content"
+                             android:layout_height="90dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:text="About me"
+                             />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <TextView
+                             android:layout_width="match_parent"
+                             android:layout_height="40dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:text="Age" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <TextView
+                             android:layout_width="match_parent"
+                             android:layout_height="60dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:text="Contact">
 
-                    <EditText
-                        android:id="@+id/description"
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:inputType="text"
-                        android:hint="Write something about you" />
+                         </TextView>
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <TextView
+                             android:layout_width="match_parent"
+                             android:layout_height="90dp"
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:id="@+id/age"
-                        android:layout_height="70dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:maxLength="2"
-                        android:inputType="number"
-                        android:hint="Age" />
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="text"
+                             android:text="Address" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <TextView
+                             android:layout_width="match_parent"
+                             android:layout_height="90dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="text"
+                             android:text="Hobbies" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+
+                     </LinearLayout>
+                     <LinearLayout
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:orientation="vertical">
+
+                         <EditText
+                             android:id="@+id/description"
+                             android:layout_width="match_parent"
+                             android:layout_height="90dp"
+                             android:maxLines="3"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="textMultiLine"
+                             android:hint="Write something about you" >
+                         </EditText>
+
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+
+                         <EditText
+                             android:layout_width="match_parent"
+                             android:id="@+id/age"
+                             android:layout_height="40dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:maxLength="2"
+                             android:inputType="number"
+                             android:hint="Age" />
+
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
 
 
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:id="@+id/phone"
-                        android:layout_height="70dp"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:inputType="phone"
-                        android:maxLength="10"
-                        android:hint="Phone" />
+                         <EditText
+                             android:layout_width="match_parent"
+                             android:id="@+id/update_contact"
+                             android:layout_height="60dp"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="textMultiLine"
+                             android:hint="Contact" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
-                    <EditText
-                        android:layout_width="match_parent"
-                        android:layout_height="70dp"
-                        android:id="@+id/address"
-                        android:background="@android:color/transparent"
-                        android:gravity="bottom"
-                        android:inputType="text"
-                        android:hint="Address" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <EditText
+                             android:layout_width="match_parent"
+                             android:layout_height="90dp"
+                             android:id="@+id/address"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="textMultiLine"
+                             android:hint="Address" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="2dp"
-                        android:background="@color/colorAccent" />
-<Button
-    android:layout_marginTop="25dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-android:id="@+id/confirm"
-    android:layout_gravity="center"
-    android:text="Save"
-    android:background="#FF6666"
-    android:textColor="@color/white"/>
-                </LinearLayout>
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+                         <EditText
+                             android:layout_width="match_parent"
+                             android:layout_height="90dp"
+                             android:id="@+id/update_hobbies"
+                             android:background="@android:color/transparent"
+                             android:gravity="bottom"
+                             android:inputType="textMultiLine"
+                             android:hint="Hobbies" />
+                         <View
+                             android:layout_width="match_parent"
+                             android:layout_height="1dp"
+                             android:layout_marginTop="2dp"
+                             android:background="@color/colorAccent" />
+
+                     </LinearLayout>
+
+
+
+                 </LinearLayout>
+                 <Button
+                     android:id="@+id/confirm"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="25dp"
+                     android:background="#FF6666"
+                     android:text="Save"
+                     android:layout_gravity="center"
+                     android:textColor="@color/white" />
+             </LinearLayout>
+
             </LinearLayout>
 
             <LinearLayout
                 android:gravity="center"
                 android:layout_width="match_parent"
-                android:layout_height="170dp"
+                android:layout_height="200dp"
                 android:layout_alignParentTop="true"
-                android:layout_alignParentStart="true">
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_picture"
@@ -126,12 +217,17 @@ android:id="@+id/confirm"
                     android:layout_height="170dp"
                     android:src="@drawable/userlogo"
                   />
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="Update infomation"
+                    android:textStyle="bold"
+                    android:gravity="center"
+                    android:textAllCaps="true"/>
             </LinearLayout>
-
-
         </RelativeLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </LinearLayout>

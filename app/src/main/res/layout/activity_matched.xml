@@ -5,18 +5,14 @@
     android:background="@color/white"
     android:orientation="vertical">
     <include layout="@layout/layout_top_navigation_view" />
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -30,18 +26,19 @@
                 android:layout_marginTop="5dp"
                 android:layout_marginBottom="10dp"
                 android:text="Matches"
-                android:textColor="@color/colorPrimary"
+                android:textColor="#FF6666"
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/matche_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:scrollbars="vertical"
+                />
 
-                android:overScrollMode="never" />
         </LinearLayout>
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
 

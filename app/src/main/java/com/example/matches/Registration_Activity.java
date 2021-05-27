@@ -51,14 +51,14 @@ public class Registration_Activity extends AppCompatActivity {
                 }
             }
         };
-        mRegister = (Button) findViewById(R.id.btn_regis);
-logintext = (TextView) findViewById(R.id.link_login);
-        mEmail = (EditText) findViewById(R.id.signup_mail);
-        mPassword = (EditText) findViewById(R.id.signup_pwd);
-        mName = (EditText) findViewById(R.id.signup_name);
+        mRegister = findViewById(R.id.btn_regis);
+logintext = findViewById(R.id.link_login);
+        mEmail = findViewById(R.id.signup_mail);
+        mPassword = findViewById(R.id.signup_pwd);
+        mName = findViewById(R.id.signup_name);
 
 
-        mRadioGroup = (RadioGroup) findViewById(R.id.radioGroup);
+        mRadioGroup = findViewById(R.id.radioGroup);
         logintext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +71,7 @@ logintext = (TextView) findViewById(R.id.link_login);
             public void onClick(View view) {
                 int selectId = mRadioGroup.getCheckedRadioButtonId();
 
-                final RadioButton radioButton = (RadioButton) findViewById(selectId);
+                final RadioButton radioButton = findViewById(selectId);
 
                 if(radioButton.getText() == null){
                     return;
@@ -93,9 +93,13 @@ logintext = (TextView) findViewById(R.id.link_login);
                             Map userInfo = new HashMap<>();
                             userInfo.put("name", name);
                             userInfo.put("imgUrl", "default");
-userInfo.put("gender",radioButton.getText().toString());
+                            userInfo.put("gender",radioButton.getText().toString());
+                            userInfo.put("proAge", "0");
+                            userInfo.put("proDes", "not set yet");
+                            userInfo.put("proAdd", "not set yet");
+                            userInfo.put("proHob", "not set yet");
+                            userInfo.put("proContact", "not set yet");
                             currentUserDb.updateChildren(userInfo);
-
                         }
                     }
                 });

@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -26,6 +27,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,13 +35,13 @@ import java.util.UUID;
 
 public class edit_profile extends AppCompatActivity
 {
-    private EditText description, age, phone, address;
+    private EditText description, age, contact, address,hobbies;
     private Button confirm;
     private ImageButton back;
     private ImageView mProfileImage;
     FirebaseAuth auth;
     private DatabaseReference databaseReference;
-    private    String userid, proDes, proAge, proPhone, proAdd, imgUrl,gender;
+    private    String userid, proDes, proAge, proContact, proAdd, imgUrl,proHobbies,gender;
     private Uri result;
 
     public Button selectimg;
@@ -48,17 +50,18 @@ public class edit_profile extends AppCompatActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.edit_profile);
-        
-        description = (EditText) findViewById(R.id.description);
-        age = (EditText) findViewById(R.id.age);
-        phone = (EditText) findViewById(R.id.phone);
-        address = (EditText) findViewById(R.id.address);
-        mProfileImage = (ImageView) findViewById(R.id.profile_picture);
 
-        selectimg= (Button) findViewById(R.id.selected) ;
+        description = findViewById(R.id.description);
+        age = findViewById(R.id.age);
+        contact = findViewById(R.id.update_contact);
+        address = findViewById(R.id.address);
+        mProfileImage = findViewById(R.id.profile_picture);
+        hobbies= findViewById(R.id.update_hobbies);
 
-        confirm= (Button) findViewById(R.id.confirm);
-        back=(ImageButton)findViewById(R.id.back);
+        selectimg= findViewById(R.id.selected);
+
+        confirm= findViewById(R.id.confirm);
+        back= findViewById(R.id.back);
 
         auth= FirebaseAuth.getInstance();
         userid= auth.getCurrentUser().getUid();
@@ -105,34 +108,34 @@ public class edit_profile extends AppCompatActivity
                     if(map.get("proDes")!=null){
                         proDes=map.get("proDes").toString();
                         description.setText(proDes);
+
                     }
                     if(map.get("proAge")!=null){
                         proAge=map.get("proAge").toString();
                         age.setText(proAge);
                     }
-                    if(map.get("proPhone")!=null){
-                        proPhone=map.get("proPhone").toString();
-                        phone.setText(proPhone);
+                    if(map.get("proContact")!=null){
+                        proContact=map.get("proContact").toString();
+                        contact.setText(proContact);
                     }
                     if(map.get("gender")!=null){
                         gender=map.get("gender").toString();
-
                     }
                     if(map.get("proAdd")!=null){
                         proAdd=map.get("proAdd").toString();
                         address.setText(proAdd);
                     }
+                    if(map.get("proHob")!=null){
+                        proHobbies=map.get("proHob").toString();
+                        hobbies.setText(proHobbies);
+                    }
                          Glide.with(getApplicationContext()).clear(mProfileImage);
                     if(map.get("imgUrl")!=null){
                         imgUrl = map.get("imgUrl").toString();
-                          switch(imgUrl){
-                         case "default":
-                          Glide.with(getApplication()).load(R.drawable.userlogo).into(mProfileImage);
-                         break;
-                        default:
-                        Glide.with(getApplication()).load(imgUrl).into(mProfileImage);
-
-                         break;
+                        if ("default".equals(imgUrl)) {
+                            Picasso.get().load(R.drawable.userlogo).into(mProfileImage);
+                        } else {
+                            Picasso.get().load(imgUrl).into(mProfileImage);
                         }
                     }
                 }
@@ -144,15 +147,19 @@ public class edit_profile extends AppCompatActivity
     }
 
     private void saveinfo() {
+
         proDes = description.getText().toString();
+
         proAge = age.getText().toString();
-        proPhone = phone.getText().toString();
+        proContact = contact.getText().toString();
         proAdd = address.getText().toString();
+        proHobbies=hobbies.getText().toString();
         Map userInfo =  new HashMap();
         userInfo.put("proDes",proDes);
         userInfo.put("proAge",proAge);
-        userInfo.put("proPhone",proPhone);
+        userInfo.put("proContact",proContact);
         userInfo.put("proAdd",proAdd);
+        userInfo.put("proHob",proHobbies);
 
         databaseReference.updateChildren(userInfo);
         if(result !=null){
