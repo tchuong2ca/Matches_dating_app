@@ -3,6 +3,7 @@ package com.example.matches;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,12 +19,17 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
+import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseAuthWeakPasswordException;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.content.ContentValues.TAG;
 
 public class Registration_Activity extends AppCompatActivity {
     private Button mRegister;
@@ -80,11 +86,39 @@ logintext = findViewById(R.id.link_login);
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(Registration_Activity.this, new OnCompleteListener<AuthResult>() {
+                mAuth.createUserWithEmailAndPassword(email, password)
+                        .addOnCompleteListener(Registration_Activity.this,
+                                new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if(!task.isSuccessful()){
-                            Toast.makeText(Registration_Activity.this, "May be this email already exist, try another email ", Toast.LENGTH_SHORT).show();
+
+                            try
+                            {
+                                throw task.getException();
+                            }
+                            // if user enters wrong email.
+                            catch (FirebaseAuthWeakPasswordException weakPassword)
+                            {
+                                Toast.makeText(Registration_Activity.this, "weak password", Toast.LENGTH_SHORT).show();
+                                // TODO: take your actions!
+                            }
+                            // if user enters wrong password.
+                            catch (FirebaseAuthInvalidCredentialsException malformedEmail)
+                            {
+                                Toast.makeText(Registration_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+
+                                // TODO: Take your action
+                            }
+                            catch (FirebaseAuthUserCollisionException existEmail)
+                            {
+                                Toast.makeText(Registration_Activity.this, "This email address is already being used", Toast.LENGTH_SHORT).show();
+
+                                // TODO: Take your action
+                            }
+                            catch (Exception e)
+                            {
+                            }
                         }
                         else{
                             Toast.makeText(Registration_Activity.this, "Successfully, automating login...", Toast.LENGTH_SHORT).show();
@@ -106,7 +140,6 @@ logintext = findViewById(R.id.link_login);
             }
         });
     }
-
     @Override
     protected void onStart() {
         super.onStart();

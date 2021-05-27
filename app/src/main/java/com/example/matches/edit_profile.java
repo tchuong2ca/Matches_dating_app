@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -32,6 +33,7 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.Delayed;
 
 public class edit_profile extends AppCompatActivity
 {
@@ -149,7 +151,6 @@ public class edit_profile extends AppCompatActivity
     private void saveinfo() {
 
         proDes = description.getText().toString();
-
         proAge = age.getText().toString();
         proContact = contact.getText().toString();
         proAdd = address.getText().toString();
@@ -190,10 +191,18 @@ public class edit_profile extends AppCompatActivity
                 Toast.makeText(edit_profile.this,""+e.getMessage(),Toast.LENGTH_SHORT).show();
             }).addOnProgressListener(snapshot -> {
                 double progress = (100.0 * snapshot.getBytesTransferred()/snapshot.getTotalByteCount());
-                mDialog.setMessage("Uploaded"+progress+"%");
+                mDialog.setMessage("Uploading "+progress+"%");
             });
 
         }
-
+Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(edit_profile.this, MainActivity.class);
+                startActivity(intent);
+            }
+        }, 5000);
     }
 }
