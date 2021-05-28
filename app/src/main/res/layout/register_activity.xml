@@ -74,10 +74,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:id="@+id/radioGroup"
+
                         android:orientation="horizontal">
                         <RadioButton
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:buttonTint="@color/white"
                             android:layout_weight="1"
                             android:text="male"
                             android:fontFamily="@font/calibri"
@@ -86,6 +88,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:buttonTint="@color/white"
                             android:fontFamily="@font/calibri"
                             android:textColor="@color/white"
                             android:text="female" />
@@ -134,6 +137,31 @@
                         android:textColor="@android:color/white"
                         android:textSize="16sp" />
                 </com.google.android.material.textfield.TextInputLayout>
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="50dp"
+                   >
+                   <com.google.android.material.checkbox.MaterialCheckBox
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"
+                       android:id="@+id/checkbox"
+                       android:gravity="center"
+                       android:buttonTint="@color/white"
+                        android:layout_marginLeft="35dp"
+                       android:layout_marginRight="15dp"
+                       android:textColor="@color/white" />
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="10dp"
+                    android:textColor="@color/white"
+                       android:gravity="center"
+                       android:clickable="true"
+                      android:id="@+id/TermOfService"
+                       android:focusable="true" />
+               </LinearLayout>
 
             </LinearLayout>
         </LinearLayout>

@@ -10,7 +10,6 @@ public class Match_Object {
         this.des = des;
         this.imgUrl = imgUrl;
     }
-
     public String getName() {
         return name;
     }

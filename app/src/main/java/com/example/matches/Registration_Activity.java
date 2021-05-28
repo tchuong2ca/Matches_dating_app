@@ -3,9 +3,12 @@ package com.example.matches;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -36,9 +39,10 @@ public class Registration_Activity extends AppCompatActivity {
     private EditText mEmail, mPassword, mName;
     boolean male=true;
     private RadioGroup mRadioGroup;
-    private TextView logintext;
+    private TextView logintext, tos;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
+    private CheckBox checkBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +68,14 @@ logintext = findViewById(R.id.link_login);
         mName = findViewById(R.id.signup_name);
 
 
+        tos= findViewById(R.id.TermOfService);
+        tos.setText(Html.fromHtml("I have read and agree to the " +
+                "<a href='https://docs.google.com/document/d/1lMtoATXyP0YVvhiAIac5hwoUlv_juuk_u-gjvtWs5_k/edit?usp=sharing'>TERMS AND CONDITIONS</a>"));
+        tos.setClickable(true);
+        tos.setMovementMethod(LinkMovementMethod.getInstance());
+
+
+        checkBox= findViewById(R.id.checkbox);
         mRadioGroup = findViewById(R.id.radioGroup);
         logintext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,64 +91,80 @@ logintext = findViewById(R.id.link_login);
 
                 final RadioButton radioButton = findViewById(selectId);
 
-                if(radioButton.getText() == null){
-                    return;
-                }
+
 
                 final String email = mEmail.getText().toString();
                 final String password = mPassword.getText().toString();
                 final String name = mName.getText().toString();
-                mAuth.createUserWithEmailAndPassword(email, password)
-                        .addOnCompleteListener(Registration_Activity.this,
-                                new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if(!task.isSuccessful()){
 
-                            try
-                            {
-                                throw task.getException();
-                            }
-                            // if user enters wrong email.
-                            catch (FirebaseAuthWeakPasswordException weakPassword)
-                            {
-                                Toast.makeText(Registration_Activity.this, "weak password", Toast.LENGTH_SHORT).show();
-                                // TODO: take your actions!
-                            }
-                            // if user enters wrong password.
-                            catch (FirebaseAuthInvalidCredentialsException malformedEmail)
-                            {
-                                Toast.makeText(Registration_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+                if(email.isEmpty()){Toast.makeText(Registration_Activity.this, "Please enter your email ", Toast.LENGTH_SHORT).show();
+                }
+                else if(mRadioGroup.getCheckedRadioButtonId()==-1){Toast.makeText(Registration_Activity.this, "Please select your gender ", Toast.LENGTH_SHORT).show();
+                }
+                else if(name.isEmpty()){Toast.makeText(Registration_Activity.this, "Please enter your name ", Toast.LENGTH_SHORT).show();
+                }
+                else if(password.isEmpty()){Toast.makeText(Registration_Activity.this, "Please enter your password ", Toast.LENGTH_SHORT).show();
+                }
+                else {
 
-                                // TODO: Take your action
-                            }
-                            catch (FirebaseAuthUserCollisionException existEmail)
-                            {
-                                Toast.makeText(Registration_Activity.this, "This email address is already being used", Toast.LENGTH_SHORT).show();
+                    if (checkBox.isChecked())
+                    {
+                        mAuth.createUserWithEmailAndPassword(email, password)
+                                .addOnCompleteListener(Registration_Activity.this,
+                                        new OnCompleteListener<AuthResult>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                                if(!task.isSuccessful()){
 
-                                // TODO: Take your action
-                            }
-                            catch (Exception e)
-                            {
-                            }
-                        }
-                        else{
-                            Toast.makeText(Registration_Activity.this, "Successfully, automating login...", Toast.LENGTH_SHORT).show();
-                            String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
-                            Map userInfo = new HashMap<>();
-                            userInfo.put("name", name);
-                            userInfo.put("imgUrl", "default");
-                            userInfo.put("gender",radioButton.getText().toString());
-                            userInfo.put("proAge", "0");
-                            userInfo.put("proDes", "not set yet");
-                            userInfo.put("proAdd", "not set yet");
-                            userInfo.put("proHob", "not set yet");
-                            userInfo.put("proContact", "not set yet");
-                            currentUserDb.updateChildren(userInfo);
-                        }
+                                                    try
+                                                    {
+                                                        throw task.getException();
+                                                    }
+                                                    // if user enters wrong email.
+                                                    catch (FirebaseAuthWeakPasswordException weakPassword)
+                                                    {
+                                                        Toast.makeText(Registration_Activity.this, "weak password", Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                    // if user enters wrong password.
+                                                    catch (FirebaseAuthInvalidCredentialsException malformedEmail)
+                                                    {
+                                                        Toast.makeText(Registration_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+
+
+                                                    }
+                                                    catch (FirebaseAuthUserCollisionException existEmail)
+                                                    {
+                                                        Toast.makeText(Registration_Activity.this, "This email address is already being used", Toast.LENGTH_SHORT).show();
+
+                                                    }
+                                                    catch (Exception e)
+                                                    {
+                                                    }
+                                                }
+                                                else{
+                                                    Toast.makeText(Registration_Activity.this, "Successfully, automating login...", Toast.LENGTH_SHORT).show();
+                                                    String userId = mAuth.getCurrentUser().getUid();
+                                                    DatabaseReference currentUserDb = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
+                                                    Map userInfo = new HashMap<>();
+                                                    userInfo.put("name", name);
+                                                    userInfo.put("imgUrl", "default");
+                                                    userInfo.put("gender",radioButton.getText().toString());
+                                                    userInfo.put("proAge", "0");
+                                                    userInfo.put("proDes", "not set yet");
+                                                    userInfo.put("proAdd", "not set yet");
+                                                    userInfo.put("proHob", "not set yet");
+                                                    userInfo.put("proContact", "not set yet");
+                                                    currentUserDb.updateChildren(userInfo);
+                                                }
+                                            }
+                                        });
                     }
-                });
+                    else
+                    {
+                        Toast.makeText(Registration_Activity.this, "you have to agree with our terms ",Toast.LENGTH_SHORT).show();
+                    }
+}
             }
         });
     }

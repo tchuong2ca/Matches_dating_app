@@ -52,34 +52,44 @@ public class Login_Activity extends AppCompatActivity {
         mLogin.setOnClickListener(view -> {
             final String email = mEmail.getText().toString();
             final String password = mPassword.getText().toString();
-            mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login_Activity.this, task -> {
-                if(!task.isSuccessful()){
-                  
-                    try
-                    {
-                        throw task.getException();
-                    }
-                    // if user enters wrong email.
-                    catch (FirebaseAuthInvalidUserException invalidEmail)
-                    {
-                        Toast.makeText(Login_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
 
-                        // TODO: take your actions!
-                    }
-                    // if user enters wrong password.
-                    catch (FirebaseAuthInvalidCredentialsException wrongPassword)
-                    {
-                        Toast.makeText(Login_Activity.this, "Wrong password", Toast.LENGTH_SHORT).show();
+            if(email.isEmpty()){
+                Toast.makeText(Login_Activity.this, "Please enter your email ", Toast.LENGTH_SHORT).show();
+            }
+            else if(password.isEmpty()){
+                Toast.makeText(Login_Activity.this, "Please enter your password ", Toast.LENGTH_SHORT).show();
+            } else {
+                mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(Login_Activity.this, task -> {
+                    if(!task.isSuccessful()){
 
-                        // TODO: Take your action
-                    }
-                    catch (Exception e)
-                    {
+                        try
+                        {
+                            throw task.getException();
+                        }
+                        // if user enters wrong email.
+                        catch (FirebaseAuthInvalidUserException invalidEmail)
+                        {
+                            Toast.makeText(Login_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
+
+                            // TODO: take your actions!
+                        }
+                        // if user enters wrong password.
+                        catch (FirebaseAuthInvalidCredentialsException wrongPassword)
+                        {
+                            Toast.makeText(Login_Activity.this, "Wrong password", Toast.LENGTH_SHORT).show();
+
+                            // TODO: Take your action
+                        }
+                        catch (Exception e)
+                        {
+
+                        }
 
                     }
+                });
 
-                }
-            });
+            }
+
         });
     }
     @Override

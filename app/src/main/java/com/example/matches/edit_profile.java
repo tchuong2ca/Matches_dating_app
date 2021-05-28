@@ -82,7 +82,8 @@ public class edit_profile extends AppCompatActivity
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                saveinfo();
+
+              saveinfo();
             }
         });
     }
@@ -149,7 +150,7 @@ public class edit_profile extends AppCompatActivity
     }
 
     private void saveinfo() {
-
+        Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
         proDes = description.getText().toString();
         proAge = age.getText().toString();
         proContact = contact.getText().toString();
@@ -161,8 +162,8 @@ public class edit_profile extends AppCompatActivity
         userInfo.put("proContact",proContact);
         userInfo.put("proAdd",proAdd);
         userInfo.put("proHob",proHobbies);
-
         databaseReference.updateChildren(userInfo);
+
         if(result !=null){
             ProgressDialog mDialog = new ProgressDialog(this);
             mDialog.setMessage("Uploading...");
@@ -195,7 +196,7 @@ public class edit_profile extends AppCompatActivity
             });
 
         }
-Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
+        Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -203,6 +204,6 @@ Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
                 Intent intent = new Intent(edit_profile.this, MainActivity.class);
                 startActivity(intent);
             }
-        }, 5000);
+        }, 4000);
     }
 }
