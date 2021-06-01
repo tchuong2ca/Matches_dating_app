@@ -1,4 +1,4 @@
-package com.example.matches;
+package com.example.matches.Match;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.matches.Navigation;
+import com.example.matches.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -36,7 +38,7 @@ private RecyclerView.LayoutManager manager;
         setContentView(R.layout.activity_matched);
         setupNav();
         currentUid= FirebaseAuth.getInstance().getCurrentUser().getUid();
-recyclerView = findViewById(R.id.matche_recycler_view);
+recyclerView = findViewById(R.id.match_recyclerview);
 recyclerView.setNestedScrollingEnabled(false);
 recyclerView.setHasFixedSize(true);
 manager= new LinearLayoutManager(Matched_Activity.this);
@@ -45,11 +47,7 @@ matchAdap = new Match_Adapter(setMatch(),Matched_Activity.this);
 recyclerView.setAdapter(matchAdap);
 
 getIdmatch();
-
-
-
     }
-
     private void getIdmatch() {
         DatabaseReference match = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("relative").child("match");
         match.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -75,6 +73,7 @@ infomatchdata.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
         if(snapshot.exists()){
+            String partnerId = snapshot.getKey();
             String name = "";
             String des ="";
             String imgUrl="";
@@ -90,7 +89,7 @@ infomatchdata.addListenerForSingleValueEvent(new ValueEventListener() {
                 imgUrl = snapshot.child("imgUrl").getValue().toString();
 
             }
-            Match_Object obj = new Match_Object(name,des,imgUrl);
+            Match_Object obj = new Match_Object(partnerId,name,des,imgUrl);
             result.add(obj);
             matchAdap.notifyDataSetChanged();
         }

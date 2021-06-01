@@ -6,7 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -23,11 +23,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,10 +35,10 @@ public class MainActivity extends AppCompatActivity {
     private final Context mContext = MainActivity.this;
     private static final int ACT_NUM = 0;
     private String curentId, imgUrl;
-
+ImageButton like, nope;
     FrameLayout cardFrame;
 
-    List<Cards> rowitems;
+    List<Users> rowitems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,15 +55,16 @@ public class MainActivity extends AppCompatActivity {
         setupNavigation();
 
         checkgender();
+        like= findViewById(R.id.likebtn);
+    nope = findViewById(R.id.dislikebtn);
 
-
-        rowitems = new ArrayList<Cards>();
+        rowitems = new ArrayList<Users>();
         cardsAdapter = new CardsAdapter(this, R.layout.item, rowitems );
 
 
         swipetoexpress();
     }
-    private void swipetoexpress() {
+    public void swipetoexpress() {
         SwipeFlingAdapterView flingAdapterView = findViewById(R.id.frame);
 
         flingAdapterView.setAdapter(cardsAdapter);
@@ -77,21 +76,17 @@ public class MainActivity extends AppCompatActivity {
             }
             @Override
             public void onLeftCardExit(Object dataObject) {
-                Cards cards= (Cards) dataObject;
-                String uid = cards.getUserId();
+                Users users = (Users) dataObject;
+                String uid = users.getUserId();
                 userDb.child(uid).child("relative").child("nope").child(curentId).setValue("true");
-
             }
             @Override
             public void onRightCardExit(Object dataObject) {
-                Cards cards= (Cards) dataObject;
-                String uid = cards.getUserId();
+                Users users = (Users) dataObject;
+                String uid = users.getUserId();
                 userDb.child(uid).child("relative").child("like").child(curentId).setValue("true");
                 status(uid);
-
             }
-
-
             @Override
             public void onAdapterAboutToEmpty(int itemsInAdapter) {
             }
@@ -105,10 +100,6 @@ public class MainActivity extends AppCompatActivity {
         });
         flingAdapterView.setOnItemClickListener((itemPosition, dataObject) -> Toast.makeText(MainActivity.this, "Clicked!",Toast.LENGTH_SHORT).show());
     }
-
-
-
-
     private void status(String uid) {
         DatabaseReference statusDb = userDb.child(curentId).child("relative").child("like").child(uid);
         statusDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -117,8 +108,12 @@ public class MainActivity extends AppCompatActivity {
                 if(snapshot.exists())
                 {
                     Toast.makeText(MainActivity.this,"It's a Match !!! <3",Toast.LENGTH_LONG).show();
-                    userDb.child(snapshot.getKey()).child("relative").child("match").child(curentId).setValue("true");
-                    userDb.child(curentId).child("relative").child("match").child(snapshot.getKey()).setValue("true");
+                    String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
+
+
+                    userDb.child(snapshot.getKey()).child("relative").child("match").child(curentId).child("chatId").setValue(key);
+
+                    userDb.child(curentId).child("relative").child("match").child(snapshot.getKey()).child("chatId").setValue(key);
                 }
             }
             @Override
@@ -184,7 +179,7 @@ public class MainActivity extends AppCompatActivity {
                                 address = snapshot.child("proAdd").getValue().toString();
                             }
 
-                        Cards item = new Cards(snapshot.getKey(), snapshot.child("name").getValue().toString(), imgUrl,age,address,hobbies,contact,description);
+                        Users item = new Users(snapshot.getKey(), snapshot.child("name").getValue().toString(), imgUrl,age,address,hobbies,contact,description);
                         rowitems.add(item);
                         cardsAdapter.notifyDataSetChanged();
                     }}

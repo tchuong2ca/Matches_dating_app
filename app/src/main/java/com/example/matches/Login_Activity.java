@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,9 +18,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseAuthInvalidUserException;
-import com.google.firebase.auth.FirebaseUser;
+
 
 public class Login_Activity extends AppCompatActivity {
 
@@ -26,11 +30,13 @@ public class Login_Activity extends AppCompatActivity {
     private EditText mEmail, mPassword;
     private TextView registext;
     private FirebaseAuth mAuth;
+
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login_acivity);
+
         mAuth = FirebaseAuth.getInstance();
         firebaseAuthStateListener = firebaseAuth -> {
             final FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
@@ -70,34 +76,44 @@ public class Login_Activity extends AppCompatActivity {
                         catch (FirebaseAuthInvalidUserException invalidEmail)
                         {
                             Toast.makeText(Login_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
-
-                            // TODO: take your actions!
                         }
                         // if user enters wrong password.
                         catch (FirebaseAuthInvalidCredentialsException wrongPassword)
                         {
                             Toast.makeText(Login_Activity.this, "Wrong password", Toast.LENGTH_SHORT).show();
-
-                            // TODO: Take your action
                         }
                         catch (Exception e)
                         {
-
                         }
-
                     }
                 });
-
             }
-
         });
     }
+//    private void sendEmailVerification() {
+//        // Send verification email
+//        // [START send_email_verification]
+//        final FirebaseUser user = mAuth.getCurrentUser();
+//        user.sendEmailVerification()
+//                .addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<Void> task) {
+//                        // Email sent
+//                    }
+//                });
+//        // [END send_email_verification]
+//    }
     @Override
     protected void onStart() {
         super.onStart();
-        mAuth.addAuthStateListener(firebaseAuthStateListener);
-    }
 
+        mAuth.addAuthStateListener(firebaseAuthStateListener);
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            reload();
+        }
+    }
+    private void reload() { }
     @Override
     protected void onStop() {
         super.onStop();

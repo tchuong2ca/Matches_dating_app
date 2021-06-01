@@ -1,5 +1,5 @@
 package com.example.matches;
-public class Cards {
+public class Users {
     private String userId;
     private String name;
     private String imgUrl;
@@ -9,7 +9,7 @@ private String hobbies;
 private String contact;
     private String description;
 
-    public Cards(String userId, String name, String imgUrl, String age, String address, String hobbies, String contact, String description) {
+    public Users(String userId, String name, String imgUrl, String age, String address, String hobbies, String contact, String description) {
         this.userId = userId;
         this.name = name;
         this.imgUrl = imgUrl;

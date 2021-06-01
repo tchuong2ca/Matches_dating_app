@@ -131,7 +131,6 @@ logintext = findViewById(R.id.link_login);
                                                     {
                                                         Toast.makeText(Registration_Activity.this, "Invalid email", Toast.LENGTH_SHORT).show();
 
-
                                                     }
                                                     catch (FirebaseAuthUserCollisionException existEmail)
                                                     {

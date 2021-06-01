@@ -1,15 +1,25 @@
-package com.example.matches;
+package com.example.matches.Match;
 
 public class Match_Object {
 
-    private String userId;
+    private String partnerId;
             private String name ,des, imgUrl;
 
-    public Match_Object(String name, String des, String imgUrl) {
+    public Match_Object(String partnerId, String name, String des, String imgUrl) {
+        this.partnerId = partnerId;
         this.name = name;
         this.des = des;
         this.imgUrl = imgUrl;
     }
+
+    public String getPartnerId() {
+        return partnerId;
+    }
+
+    public void setPartnerId(String partnerId) {
+        this.partnerId = partnerId;
+    }
+
     public String getName() {
         return name;
     }

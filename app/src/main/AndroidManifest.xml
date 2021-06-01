@@ -26,9 +26,10 @@
         <activity android:name=".MainActivity"/>
         <activity android:name=".Registration_Activity"/>
         <activity android:name=".Profile_Activity"/>
-        <activity android:name=".Matched_Activity"/>
+        <activity android:name=".Match.Matched_Activity"/>
         <activity android:name=".edit_profile"/>
         <activity android:name=".Check_info"/>
+        <activity android:name=".Chat.Chat_Activity"/>
     </application>
 
 </manifest>

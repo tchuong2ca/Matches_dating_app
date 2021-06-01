@@ -34,6 +34,14 @@
             android:textColor="@color/grey"
             android:text="Description"
             android:textSize="16dp" />
+        <TextView
+            android:id="@+id/partnerId"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/grey"
+            android:text="partnerId"
+android:visibility="gone"
+            android:textSize="16dp" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"

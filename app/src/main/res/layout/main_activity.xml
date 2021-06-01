@@ -61,20 +61,20 @@
                         android:layout_marginRight="20dp"
                         android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
-                        android:onClick="onLeftCardExit"
-                        android:visibility="gone"
+android:visibility="gone"
                         android:padding="10dp"
                         android:src="@drawable/ic_baseline_not_interested_32" />
 
                     <ImageButton
                         android:id="@+id/likebtn"
-                        android:visibility="gone"
+
                         android:layout_width="70dp"
                         android:layout_height="70dp"
                         android:background="@drawable/round_button_with_border"
                         android:elevation="7dp"
                         android:onClick="LikeBtn"
                         android:padding="10dp"
+                        android:visibility="gone"
                         android:src="@drawable/love_fb" />
 
 
