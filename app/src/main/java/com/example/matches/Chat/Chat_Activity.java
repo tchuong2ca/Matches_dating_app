@@ -1,5 +1,8 @@
 package com.example.matches.Chat;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -14,7 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-
+import com.example.matches.Match.Matched_Activity;
 import com.example.matches.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -34,7 +37,7 @@ import java.util.Objects;
 
 public class Chat_Activity extends AppCompatActivity {
 
-    private String currentUid,partnerId,name, avaUrl,chatId, getAvt;
+    private String currentUid,partnerId,name, avaUrl,chatId;
     private RecyclerView recyclerView;
 
     FirebaseAuth auth;
@@ -44,7 +47,7 @@ public class Chat_Activity extends AppCompatActivity {
     ImageButton back;
     ImageView avt;
     private EditText Message;
-    private ImageButton sendbtn;
+    private ImageButton sendbtn, unmatchBtn;
     private RecyclerView.LayoutManager Chatmanager;
     @Override
     protected void onCreate(Bundle saveInstanceState){
@@ -54,9 +57,11 @@ public class Chat_Activity extends AppCompatActivity {
         auth= FirebaseAuth.getInstance();
         partnerId = getIntent().getExtras().getString("partnerId");
         currentUid= Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid();
+
         dataUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("relative").child("match").child(partnerId).child("chatId");
         dataChat = FirebaseDatabase.getInstance().getReference().child("Chat");
-currentAvt = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("imgUrl");
+
+        currentAvt = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("imgUrl");
 
         name = getIntent().getExtras().getString("partnerName");
         getChatId();
@@ -73,6 +78,13 @@ currentAvt = FirebaseDatabase.getInstance().getReference().child("Users").child(
         avt = findViewById(R.id.partner_avt);
         Message= findViewById(R.id.message);
         sendbtn= findViewById(R.id.send);
+        unmatchBtn = findViewById(R.id.unmatch);
+        unmatchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                unmatch();
+            }
+        });
         sendbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,6 +102,47 @@ currentAvt = FirebaseDatabase.getInstance().getReference().child("Users").child(
             }
         });
         getimg();
+    }
+
+    private void unmatch() {
+
+        AlertDialog.Builder alert = new AlertDialog.Builder(Chat_Activity.this);
+        alert.setMessage("Do you really want to delete this match?");
+        alert.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                dataUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            chatId = snapshot.getValue().toString();
+                            DatabaseReference deleteMatchTree = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+                            deleteMatchTree.removeValue();
+
+                            DatabaseReference deleteMyMatch = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("relative").child("match").child(partnerId);
+                            deleteMyMatch.removeValue();
+
+                            DatabaseReference deletePartnerMatch = FirebaseDatabase.getInstance().getReference().child("Users").child(partnerId).child("relative").child("match").child(currentUid);
+                            deletePartnerMatch.removeValue();
+                            startActivity(new Intent(Chat_Activity.this, Matched_Activity.class));
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+            }
+        });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        alert.show();
     }
 
     private void sendMessage() {

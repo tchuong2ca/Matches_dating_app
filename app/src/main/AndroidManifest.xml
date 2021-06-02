@@ -4,8 +4,16 @@
     package="com.example.matches">
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/icon_app"
@@ -30,6 +38,7 @@
         <activity android:name=".edit_profile"/>
         <activity android:name=".Check_info"/>
         <activity android:name=".Chat.Chat_Activity"/>
+        <activity android:name=".ForgotPassword_Activity"/>
     </application>
 
 </manifest>

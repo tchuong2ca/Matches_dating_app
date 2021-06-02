@@ -80,9 +80,7 @@ public class Profile_Activity extends AppCompatActivity {
         settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Profile_Activity.this, Chat_Activity.class);
-                startActivity(intent);
-                return;
+
             }
         });
     }

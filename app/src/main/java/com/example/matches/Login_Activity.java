@@ -30,7 +30,7 @@ public class Login_Activity extends AppCompatActivity {
     private EditText mEmail, mPassword;
     private TextView registext;
     private FirebaseAuth mAuth;
-
+TextView forgotpwd;
     private FirebaseAuth.AuthStateListener firebaseAuthStateListener;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +50,14 @@ public class Login_Activity extends AppCompatActivity {
         registext= findViewById(R.id.link_signup);
         mEmail = findViewById(R.id.input_email);
         mPassword = findViewById(R.id.input_password);
+        forgotpwd = findViewById(R.id.forgotPwd);
+        forgotpwd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(Login_Activity.this,ForgotPassword_Activity.class));
+            }
+        });
+
         registext.setOnClickListener(v -> {
             Intent intent = new Intent(Login_Activity.this,Registration_Activity.class);
             startActivity(intent);
@@ -118,5 +126,8 @@ public class Login_Activity extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
+    }
+    @Override
+    public void onBackPressed() {
     }
 }

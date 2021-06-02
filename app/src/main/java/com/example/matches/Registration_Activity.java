@@ -178,4 +178,7 @@ logintext = findViewById(R.id.link_login);
         super.onStop();
         mAuth.removeAuthStateListener(firebaseAuthStateListener);
     }
+    @Override
+    public void onBackPressed() {
+    }
 }

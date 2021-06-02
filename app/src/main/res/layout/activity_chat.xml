@@ -26,10 +26,11 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginLeft="10dp"
+
                 android:id="@+id/partner_avt"
                 android:background="@drawable/userlogo"/>
             <TextView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="partnerName"
@@ -37,6 +38,14 @@
                android:layout_gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="20sp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+               android:layout_marginLeft="100dp"
+                android:id="@+id/unmatch"
+                android:background="@drawable/ic_baseline_clear_32"/>
+
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
