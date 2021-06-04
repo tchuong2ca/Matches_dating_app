@@ -1,11 +1,10 @@
-package com.example.matches;
+package com.example.matches.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +17,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
+import com.example.matches.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -33,7 +33,6 @@ import com.squareup.picasso.Picasso;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.Delayed;
 
 public class edit_profile extends AppCompatActivity
 {
@@ -102,6 +101,7 @@ public class edit_profile extends AppCompatActivity
             mProfileImage.setImageURI(result);
         }
     }
+
     private void getinfo() {
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -132,7 +132,7 @@ public class edit_profile extends AppCompatActivity
                         proHobbies=map.get("proHob").toString();
                         hobbies.setText(proHobbies);
                     }
-                         Glide.with(getApplicationContext()).clear(mProfileImage);
+
                     if(map.get("imgUrl")!=null){
                         imgUrl = map.get("imgUrl").toString();
                         if ("default".equals(imgUrl)) {
@@ -150,7 +150,7 @@ public class edit_profile extends AppCompatActivity
     }
 
     private void saveinfo() {
-        Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
+        //Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
         proDes = description.getText().toString();
         proAge = age.getText().toString();
         proContact = contact.getText().toString();
@@ -196,7 +196,7 @@ public class edit_profile extends AppCompatActivity
             });
 
         }
-        Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG);
+        Toast.makeText(edit_profile.this,"Uploaded",Toast.LENGTH_LONG).show();
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override

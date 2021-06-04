@@ -1,4 +1,4 @@
-package com.example.matches;
+package com.example.matches.Model;
 public class Users {
     private String userId;
     private String name;

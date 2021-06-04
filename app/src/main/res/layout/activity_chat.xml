@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    tools:context="com.example.matches.Chat.Chat_Activity">
+    tools:context="com.example.matches.Activity.Chat_Activity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"

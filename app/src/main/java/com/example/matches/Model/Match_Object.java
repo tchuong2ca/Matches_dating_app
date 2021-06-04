@@ -1,4 +1,4 @@
-package com.example.matches.Match;
+package com.example.matches.Model;
 
 public class Match_Object {
 

@@ -1,11 +1,9 @@
-package com.example.matches;
+package com.example.matches.Activity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -18,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matches.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -31,8 +30,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import static android.content.ContentValues.TAG;
 
 public class Registration_Activity extends AppCompatActivity {
     private Button mRegister;
@@ -62,7 +59,7 @@ public class Registration_Activity extends AppCompatActivity {
             }
         };
         mRegister = findViewById(R.id.btn_regis);
-logintext = findViewById(R.id.link_login);
+        logintext = findViewById(R.id.link_login);
         mEmail = findViewById(R.id.signup_mail);
         mPassword = findViewById(R.id.signup_pwd);
         mName = findViewById(R.id.signup_name);
@@ -106,7 +103,6 @@ logintext = findViewById(R.id.link_login);
                 else if(password.isEmpty()){Toast.makeText(Registration_Activity.this, "Please enter your password ", Toast.LENGTH_SHORT).show();
                 }
                 else {
-
                     if (checkBox.isChecked())
                     {
                         mAuth.createUserWithEmailAndPassword(email, password)
@@ -163,7 +159,7 @@ logintext = findViewById(R.id.link_login);
                     {
                         Toast.makeText(Registration_Activity.this, "you have to agree with our terms ",Toast.LENGTH_SHORT).show();
                     }
-}
+                }
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.matches.Chat;
+package com.example.matches.Activity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +18,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.matches.Match.Matched_Activity;
+import com.example.matches.Adapter.Chat_Adapter;
+import com.example.matches.Model.Chat_Object;
 import com.example.matches.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -25,6 +27,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -41,7 +44,7 @@ public class Chat_Activity extends AppCompatActivity {
     private RecyclerView recyclerView;
 
     FirebaseAuth auth;
-    DatabaseReference databaseReference,dataUser, dataChat,currentAvt;
+    DatabaseReference databaseReference,dataUser, dataChat,currentAvt, lastmessage;
     private RecyclerView.Adapter chatAdap;
     TextView partnerName;
     ImageButton back;
@@ -62,6 +65,9 @@ public class Chat_Activity extends AppCompatActivity {
         dataChat = FirebaseDatabase.getInstance().getReference().child("Chat");
 
         currentAvt = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("imgUrl");
+
+
+
 
         name = getIntent().getExtras().getString("partnerName");
         getChatId();
@@ -102,6 +108,47 @@ public class Chat_Activity extends AppCompatActivity {
             }
         });
         getimg();
+       getLastMessage();
+    }
+
+    private void getLastMessage() {
+        String lastmsg;
+        dataUser.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.exists()){
+                    chatId = snapshot.getValue().toString();
+                    DatabaseReference dbref = FirebaseDatabase.getInstance().getReference().child("Chat").child(chatId);
+                    Query lastchild= dbref.orderByKey().limitToLast(1);
+                    lastchild.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                            for(DataSnapshot data : snapshot.getChildren())
+                            {
+                                Toast.makeText(Chat_Activity.this,data.child("message").getValue().toString(),Toast.LENGTH_LONG).show();
+                            }
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
+
+                }
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+//        lastchild.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NotNull DataSnapshot snapshot) {
+//               Toast.makeText(Chat_Activity.this,snapshot.child("message").getValue().toString(),Toast.LENGTH_LONG).show();
+//            }
+//            @Override
+//            public void onCancelled(@NotNull DatabaseError databaseError) {
+//                Toast.makeText(Chat_Activity.this,"no message",Toast.LENGTH_LONG).show();
+//            } });
     }
 
     private void unmatch() {
@@ -146,12 +193,9 @@ public class Chat_Activity extends AppCompatActivity {
     }
 
     private void sendMessage() {
-currentAvt.addListenerForSingleValueEvent(new ValueEventListener() {
+currentAvt.addValueEventListener(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-
-
         String sendMsg = Message.getText().toString();
         if(!sendMsg.isEmpty()){
             DatabaseReference newMsgDb = dataChat.push();
@@ -162,7 +206,6 @@ currentAvt.addListenerForSingleValueEvent(new ValueEventListener() {
             newMsgDb.setValue(newMsg);
         }
         Message.setText(null);
-
     }
 
     @Override
@@ -170,9 +213,6 @@ currentAvt.addListenerForSingleValueEvent(new ValueEventListener() {
 
     }
 });
-
-
-
     }
     private void getChatId(){
         dataUser.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -184,7 +224,6 @@ currentAvt.addListenerForSingleValueEvent(new ValueEventListener() {
                     getMessages();
                 }
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
@@ -218,7 +257,9 @@ currentAvt.addListenerForSingleValueEvent(new ValueEventListener() {
                         }
                         Chat_Object newmessage = new Chat_Object(message,boolenCurUsr,avatar);
                         result.add(newmessage);
+
                         chatAdap.notifyDataSetChanged();
+
                     }
 
                 }

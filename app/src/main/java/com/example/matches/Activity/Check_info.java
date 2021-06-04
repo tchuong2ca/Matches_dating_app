@@ -1,4 +1,4 @@
-package com.example.matches;
+package com.example.matches.Activity;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.matches.R;
 import com.squareup.picasso.Picasso;
 
 public class Check_info extends AppCompatActivity

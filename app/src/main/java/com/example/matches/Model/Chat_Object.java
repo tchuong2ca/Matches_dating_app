@@ -1,4 +1,4 @@
-package com.example.matches.Chat;
+package com.example.matches.Model;
 
 public class Chat_Object {
     private String message;

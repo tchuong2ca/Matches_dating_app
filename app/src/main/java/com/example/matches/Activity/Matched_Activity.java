@@ -1,15 +1,18 @@
-package com.example.matches.Match;
+package com.example.matches.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.matches.Adapter.Match_Adapter;
+import com.example.matches.Model.Match_Object;
 import com.example.matches.Navigation;
 import com.example.matches.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,7 +29,8 @@ import java.util.List;
 
 public class Matched_Activity extends AppCompatActivity {
 RecyclerView recyclerView;
-private String currentUid;
+private String currentUid,partnerId;
+DatabaseReference dataUser;
     private static final int ACT_NUM = 1;
     private final Context mContext = Matched_Activity.this;
 private RecyclerView.Adapter matchAdap;
@@ -45,6 +49,8 @@ manager= new LinearLayoutManager(Matched_Activity.this);
 recyclerView.setLayoutManager(manager);
 matchAdap = new Match_Adapter(setMatch(),Matched_Activity.this);
 recyclerView.setAdapter(matchAdap);
+//        partnerId =
+//        dataUser = FirebaseDatabase.getInstance().getReference().child("Users").child(currentUid).child("relative").child("match").child(partnerId).child("chatId");
 
 getIdmatch();
     }
@@ -69,6 +75,7 @@ getIdmatch();
 
     private void fetchInfoMatch(String key) {
         DatabaseReference infomatchdata = FirebaseDatabase.getInstance().getReference().child("Users").child(key);
+
 infomatchdata.addListenerForSingleValueEvent(new ValueEventListener() {
     @Override
     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -90,6 +97,7 @@ infomatchdata.addListenerForSingleValueEvent(new ValueEventListener() {
 
             }
             Match_Object obj = new Match_Object(partnerId,name,des,imgUrl);
+            //Toast.makeText(Matched_Activity.this, infomatchdata.getKey(),Toast.LENGTH_LONG).show();
             result.add(obj);
             matchAdap.notifyDataSetChanged();
         }

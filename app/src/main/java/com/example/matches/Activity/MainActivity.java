@@ -1,4 +1,4 @@
-package com.example.matches;
+package com.example.matches.Activity;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -13,6 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matches.Adapter.CardsAdapter;
+import com.example.matches.Model.Users;
+import com.example.matches.Navigation;
+import com.example.matches.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -46,8 +50,6 @@ ImageButton like, nope;
         setContentView(R.layout.main_activity);
 
         cardFrame = findViewById(R.id.card_frame);
-
-
         auth=FirebaseAuth.getInstance();
         userDb = FirebaseDatabase.getInstance().getReference().child("Users");
         curentId = auth.getCurrentUser().getUid();
@@ -100,6 +102,7 @@ ImageButton like, nope;
         });
         flingAdapterView.setOnItemClickListener((itemPosition, dataObject) -> Toast.makeText(MainActivity.this, "Clicked!",Toast.LENGTH_SHORT).show());
     }
+
     private void status(String uid) {
         DatabaseReference statusDb = userDb.child(curentId).child("relative").child("like").child(uid);
         statusDb.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -109,7 +112,6 @@ ImageButton like, nope;
                 {
                     Toast.makeText(MainActivity.this,"It's a Match !!! <3",Toast.LENGTH_LONG).show();
                     String key = FirebaseDatabase.getInstance().getReference().child("Chat").push().getKey();
-
 
                     userDb.child(snapshot.getKey()).child("relative").child("match").child(curentId).child("chatId").setValue(key);
 
@@ -155,7 +157,16 @@ ImageButton like, nope;
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 if (snapshot.child("gender").getValue() != null) {
-                    if (snapshot.exists() && !snapshot.child("relative").child("nope").hasChild(curentId) && !snapshot.child("relative").child("like").hasChild(curentId)&&snapshot.child("gender").getValue().toString().equals(oppositegender)) {
+                    if (snapshot.exists()
+                            //kiểm tra currentid có trong child "nope" của người khác
+                            && !snapshot.child("relative").child("nope").hasChild(curentId)
+
+                            //kiểm tra currentid có trong child "like" của người khác
+                            && !snapshot.child("relative").child("like").hasChild(curentId)
+
+                            //truy vấn những thành viên có giới tính trái ngược
+                            &&snapshot.child("gender").getValue().toString().equals(oppositegender)) {
+                        //thì
                         String imgUrl = "default";
                         String age = "0";
                         String contact = "not set yet";

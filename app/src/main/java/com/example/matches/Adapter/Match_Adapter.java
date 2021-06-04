@@ -1,4 +1,4 @@
-package com.example.matches.Match;
+package com.example.matches.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.matches.Chat.Chat_Activity;
+import com.example.matches.Activity.Chat_Activity;
+import com.example.matches.Model.Match_Object;
 import com.example.matches.R;
 import com.squareup.picasso.Picasso;
 

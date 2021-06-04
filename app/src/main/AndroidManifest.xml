@@ -30,15 +30,15 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name=".Login_Activity" />
-        <activity android:name=".MainActivity"/>
-        <activity android:name=".Registration_Activity"/>
-        <activity android:name=".Profile_Activity"/>
-        <activity android:name=".Match.Matched_Activity"/>
-        <activity android:name=".edit_profile"/>
-        <activity android:name=".Check_info"/>
-        <activity android:name=".Chat.Chat_Activity"/>
-        <activity android:name=".ForgotPassword_Activity"/>
+        <activity android:name=".Activity.Login_Activity" />
+        <activity android:name=".Activity.MainActivity"/>
+        <activity android:name=".Activity.Registration_Activity"/>
+        <activity android:name=".Activity.Profile_Activity"/>
+        <activity android:name=".Activity.Matched_Activity"/>
+        <activity android:name=".Activity.edit_profile"/>
+        <activity android:name=".Activity.Check_info"/>
+        <activity android:name=".Activity.Chat_Activity"/>
+        <activity android:name=".Activity.ForgotPassword_Activity"/>
     </application>
 
 </manifest>

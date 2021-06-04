@@ -1,4 +1,4 @@
-package com.example.matches;
+package com.example.matches.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+
+import com.example.matches.Activity.Check_info;
+import com.example.matches.Model.Users;
+import com.example.matches.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
