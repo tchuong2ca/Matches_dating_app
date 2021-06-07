@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Patterns;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -54,19 +55,21 @@ resetPassword();
     private void resetPassword() {
         String email = inputresetmail.getText().toString().trim();
         if(email.isEmpty()){
-            inputresetmail.setError("Email is require!!");
+            inputresetmail.setError("Email is required!!");
             inputresetmail.requestFocus();
             return;
         }
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            inputresetmail.setError("Please provide valid email!");
+            inputresetmail.setError("Please enter a valid email address!");
         }
         progressBar.setVisibility(View.VISIBLE);
         firebaseAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if(task.isSuccessful()){
-                    Toast.makeText(ForgotPassword_Activity.this ,"Check your email", Toast.LENGTH_LONG).show();
+                   Toast toast= Toast.makeText(ForgotPassword_Activity.this ,"Check your email", Toast.LENGTH_LONG);
+                   toast.setGravity(Gravity.CENTER,0,0);
+                   toast.show();
                     Handler handler = new Handler();
                     handler.postDelayed(new Runnable() {
                         @Override

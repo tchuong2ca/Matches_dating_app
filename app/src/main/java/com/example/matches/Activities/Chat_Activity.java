@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -173,7 +174,10 @@ public class Chat_Activity extends AppCompatActivity {
                     });
                 }
                 else {
-                    Toast.makeText(Chat_Activity.this,"Please enter your message",Toast.LENGTH_SHORT).show();
+
+                   Toast toast= Toast.makeText(Chat_Activity.this,"Please enter your message",Toast.LENGTH_SHORT);
+                   toast.setGravity(Gravity.CENTER,0,0);
+                   toast.show();
                 }
                 Message.setText(null);
             }
