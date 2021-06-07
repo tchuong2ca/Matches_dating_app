@@ -20,7 +20,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Matches" >
+        android:theme="@style/Theme.Matches"
+       >
 
     <activity android:name="com.example.matches.SplashActivity"
         android:theme="@style/SplashTheme">
@@ -30,15 +31,15 @@
             <category android:name="android.intent.category.LAUNCHER" />
         </intent-filter>
     </activity>
-        <activity android:name=".Activity.Login_Activity" />
-        <activity android:name=".Activity.MainActivity"/>
-        <activity android:name=".Activity.Registration_Activity"/>
-        <activity android:name=".Activity.Profile_Activity"/>
-        <activity android:name=".Activity.Matched_Activity"/>
-        <activity android:name=".Activity.edit_profile"/>
-        <activity android:name=".Activity.Check_info"/>
-        <activity android:name=".Activity.Chat_Activity"/>
-        <activity android:name=".Activity.ForgotPassword_Activity"/>
+        <activity android:name=".Authentication.Login_Activity" />
+        <activity android:name=".Activities.MainActivity"/>
+        <activity android:name=".Authentication.Registration_Activity"/>
+        <activity android:name=".Activities.Profile_Activity"/>
+        <activity android:name=".Activities.Matched_Activity"/>
+        <activity android:name=".Activities.edit_profile"/>
+        <activity android:name=".Activities.Check_info"/>
+        <activity android:name=".Activities.Chat_Activity"/>
+        <activity android:name=".Authentication.ForgotPassword_Activity"/>
     </application>
 
 </manifest>

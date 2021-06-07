@@ -5,6 +5,7 @@ public class Chat_Object {
     private Boolean currentuser;
     private String partnerAvt;
 
+
     public Chat_Object(String message, Boolean currentuser, String partnerAvt) {
         this.message = message;
         this.currentuser = currentuser;

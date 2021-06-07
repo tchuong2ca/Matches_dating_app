@@ -1,4 +1,4 @@
-package com.example.matches.Activity;
+package com.example.matches.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matches.Activities.MainActivity;
 import com.example.matches.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;

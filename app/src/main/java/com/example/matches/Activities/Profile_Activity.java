@@ -1,4 +1,4 @@
-package com.example.matches.Activity;
+package com.example.matches.Activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.matches.Authentication.Login_Activity;
 import com.example.matches.Navigation;
 import com.example.matches.PulsatorLayout;
 import com.example.matches.R;
@@ -83,6 +84,7 @@ public class Profile_Activity extends AppCompatActivity {
     }
 
     private void getimg() {
+
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Users").child(userId);
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

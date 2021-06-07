@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.example.matches.Activity.Check_info;
+import com.example.matches.Activities.Check_info;
 import com.example.matches.Model.Users;
 import com.example.matches.R;
 import com.squareup.picasso.Picasso;

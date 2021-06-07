@@ -4,12 +4,16 @@ public class Match_Object {
 
     private String partnerId;
             private String name ,des, imgUrl;
+    private String notificationKey, lastmessage, sentby;
 
-    public Match_Object(String partnerId, String name, String des, String imgUrl) {
+    public Match_Object(String partnerId, String name, String des, String imgUrl, String notificationKey, String lastmessage, String sentby) {
         this.partnerId = partnerId;
         this.name = name;
         this.des = des;
         this.imgUrl = imgUrl;
+        this.notificationKey = notificationKey;
+        this.lastmessage = lastmessage;
+        this.sentby = sentby;
     }
 
     public String getPartnerId() {
@@ -42,5 +46,29 @@ public class Match_Object {
 
     public void setImgUrl(String imgUrl) {
         this.imgUrl = imgUrl;
+    }
+
+    public String getNotificationKey() {
+        return notificationKey;
+    }
+
+    public void setNotificationKey(String notificationKey) {
+        this.notificationKey = notificationKey;
+    }
+
+    public String getLastmessage() {
+        return lastmessage;
+    }
+
+    public void setLastmessage(String lastmessage) {
+        this.lastmessage = lastmessage;
+    }
+
+    public String getSentby() {
+        return sentby;
+    }
+
+    public void setSentby(String sentby) {
+        this.sentby = sentby;
     }
 }

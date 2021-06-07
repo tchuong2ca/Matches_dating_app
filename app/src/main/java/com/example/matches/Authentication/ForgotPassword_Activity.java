@@ -1,4 +1,4 @@
-package com.example.matches.Activity;
+package com.example.matches.Authentication;
 
 import android.content.Intent;
 import android.os.Bundle;

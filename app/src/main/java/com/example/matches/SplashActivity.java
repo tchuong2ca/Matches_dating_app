@@ -6,7 +6,7 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.matches.Activity.Login_Activity;
+import com.example.matches.Authentication.Login_Activity;
 
 public class SplashActivity extends AppCompatActivity {
     @Override

@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.view.MenuItem;
 import androidx.annotation.NonNull;
 
-import com.example.matches.Activity.MainActivity;
-import com.example.matches.Activity.Matched_Activity;
-import com.example.matches.Activity.Profile_Activity;
+import com.example.matches.Activities.MainActivity;
+import com.example.matches.Activities.Matched_Activity;
+import com.example.matches.Activities.Profile_Activity;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Navigation {
 

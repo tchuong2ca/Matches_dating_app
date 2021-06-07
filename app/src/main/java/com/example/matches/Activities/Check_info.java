@@ -1,4 +1,4 @@
-package com.example.matches.Activity;
+package com.example.matches.Activities;
 
 import android.content.Context;
 import android.content.Intent;

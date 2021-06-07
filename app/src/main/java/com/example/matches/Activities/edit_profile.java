@@ -1,4 +1,4 @@
-package com.example.matches.Activity;
+package com.example.matches.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bumptech.glide.Glide;
 import com.example.matches.R;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
